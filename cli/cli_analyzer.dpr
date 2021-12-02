@@ -61,6 +61,8 @@ begin
     writeln('Program''s spen id: ', getProgSpen(SpenRes));
     writeln('Done!');
 
+    writeln('LOG: counting spens completed');
+
 
 
     readln;

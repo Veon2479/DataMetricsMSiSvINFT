@@ -1,37 +1,31 @@
 public static void main(String[] args) {
 	int a = args ? 0 : 1;
-	if (a == 0) 
-		a++;
-	else	
-		a--;
-	if (a == 1) 
-		b = 10; 
-	// hei = 3, op = 3
+	if ( a == 0)
+		 a ++;
+	else
+		 a --;
+	if ( a == 1)
+		b = 10;
 	while (b > 1) {
-		// hei = 2, op = 2
-		switch (a) 
+		switch ( a )
 		{
-			case 1: log(a);
-			case 0: log(-a); 
-			default: while (a)
-					a--;
+			case 1: log( a );
+			case 0: log(- a );
+			default: while ( a )
+					 a --;
 		}
-		// hei = 0, op = 1
-                if (a != 1)
+                if ( a != 1)
 			b <<= 2;
+        dec(c);
 	}
-	// hei = 0, op = 1
-	a >>= b;
-	// hei = 5, op = 18	
-	if (a % b >> 2) {
-		// hei = 1, op = 2
+	 a >>= b;
+
+	if ( a % b >> 2) {
 		do {
 			i++;
 		} while (i < 0);
 	} else {
-		// hei = 4, op = 14
 		for (int i = 10; i < 20; i++)
-			// hei = 3, op = 11
 			switch (i--) {
 				case a    : i++; b -= i; break;
 				case b    : i--; b += i; break;
@@ -39,5 +33,4 @@ public static void main(String[] args) {
 				case a - b: i*=2; b = i; break;
 			}
 	} 
- 	// return;
     }

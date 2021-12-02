@@ -69,6 +69,7 @@ interface
         DSIGNS = ' <= >= == != ++ -- || && ';
         BLACKLIST = ' } ] ) ';
 
+
         STR_OP_ASS    = ' = += -= *= /= %= &= ^= |= <<= >>= >>>= ';
         STR_OP_UNAR   = ' ++ -- ~ ! ';
         STR_OP_LOGIC  = ' % & | && || ^ == != ';
@@ -88,6 +89,8 @@ interface
                     + STR_OP_LOGIC + STR_OP_REL + STR_OP_AR
                     + STR_lIf + STR_lSwitch + STR_lFor + STR_lWhile
                     + STR_lRepeat + STR_lConv + STR_lCase;
+        ALPHABET =  BLACKLIST+DSIGNS+OP_SIGNS+IGNORED+SUPER_IGNORED+JUMPES+CYCLES+MINORENTRIES+MAJORENTRIES+STR_OPERATORS;
+
   var
     nLexems: integer;
 
@@ -97,10 +100,22 @@ interface
   function getLen: integer;
   procedure resetStack;
 
+  function isReserved(const ID: String): boolean;
+
 implementation
   var
     Stack: array[1..200] of integer;
     SP: integer = 1;  //first empty
+
+  function isReserved(const ID: String): boolean;
+    var
+      code: integer;
+    begin
+      code := pos(' '+ID+' ', ALPHABET);
+      if code <> 0 then RESULT:=true
+        else RESULT:=false;
+    end;
+
 
   procedure push(const NUM: integer);
     begin
