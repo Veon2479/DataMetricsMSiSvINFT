@@ -54,12 +54,12 @@ begin
 
     writeln('LOG: output file for tokens was created');
 
-   { SpenRes := getSpenAnalys(lexems, nLexems);    //this array doesn't contain void fields
+    SpenRes := getSpenAnalys(lexems, nLexems);    //this array doesn't contain void fields
     writeln('ID''s spens: ');
     for i := 0 to length(SpenRes)-1 do
       writeln(SpenRes[i].lexem,' - ',SpenRes[i].spen);
     writeln('Program''s spen id: ', getProgSpen(SpenRes));
-    writeln('Done!');     }
+    writeln('Done!');
 
 
 
