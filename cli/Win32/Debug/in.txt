@@ -1,5 +1,9 @@
 public static void main(String[] args) {
 	int a = args ? 0 : 1;
+        Scanner sc = new Scanner(System.in);
+        a = sc.nextInt();
+        System.out.print(b);
+        b = sc.nextInt();
 
 	if ( a == 0)
 		 a ++;
