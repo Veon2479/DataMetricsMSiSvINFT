@@ -97,7 +97,12 @@ interface
         STR_lCase     = ' case ';
         STR_lDeflt    = ' default ';
 
-        STR_COND_OPES = ' if switch for while do ? ';
+        STR_OPES_UNARY    = ' ++ -- ~ ! ';
+        STR_OPES_BINARY   = ' += -= *= /= %= &= ^= |= <<= >>= >>>= % & | && || ^ == != < > <= >= instanceof '; // '=' excluded!!!!
+        STR_OPES_QUESTION = ' + - ';
+        STR_OPES_ALL      =  STR_OPES_QUESTION + STR_OPES_BINARY +  STR_OPES_UNARY;
+
+        STR_COND_OPES = ' if switch for while ? ';
         STR_DEFINE_VAR = ' int float double String char boolean short long byte ';
         STRS_READ_VAR_AMOUNT = 9;
         STRS_READ_VAR  : array [1..STRS_READ_VAR_AMOUNT] of string = ('.readLine', '.nextLine',
@@ -119,14 +124,17 @@ interface
   function getLen: integer;
   procedure resetStack;
 
+  //function getHash(const member: shortString; const qset: QSet): integer; overload;
+  //procedure qpush(const member: shortString; var qset: QSet);
 
-  function getHash(const member: shortString; const qset: QSet): integer; overload;
-  procedure qpush(const member: shortString; var qset: QSet);
   function qsearch(const member: shortString; const qset: QSet): integer;
   function qadd(const member: shortString; var qset: QSet): boolean;
   function qrm(const member: shortString; var qset: QSet): boolean;
   procedure qini(var qset: QSet; const len: integer);
   function qcount(const qset: QSet): integer;
+
+  procedure qsum(var qsetA: QSet; const qsetB: QSet);
+  procedure qmul(var qsetA: QSet; const qsetB: QSet);
 
 
   function isReserved(const ID: String): boolean;
@@ -192,7 +200,11 @@ implementation
             inc(result, ord(c));
         result:= Result mod qset.len;
     end;
-
+    procedure qpush(const member: shortString; var qset: QSet);
+    var i: integer;
+    begin
+        pushToArr(member, qset.table[getHash(member, qset)]);
+    end;
     function qadd(const member: shortString; var qset: QSet): boolean;
     begin
         result:= (qsearch(member, qset)  = -1);
@@ -204,11 +216,6 @@ implementation
     begin
         qset.len := len;
         setLength(qset.table, len);
-    end;
-    procedure qpush(const member: shortString; var qset: QSet);
-    var i: integer;
-    begin
-        pushToArr(member, qset.table[getHash(member, qset)]);
     end;
     function qsearch(const member: shortString; const qset: QSet): integer;
     begin
@@ -240,6 +247,26 @@ implementation
 
     end;
 
+    procedure qsum(var qsetA: QSet; const qsetB: QSet);
+    var i, j: integer;
+    begin
+        with qsetB do
+            for i := 0 to len - 1 do
+                with table[i] do
+                    for j := 0 to len - 1 do
+                        if arr[j] <> '' then
+                            qadd(arr[j], qsetA);
+    end;
+    procedure qmul(var qsetA: QSet; const qsetB: QSet);
+    var i, j: integer;
+    begin
+        with qsetA do
+            for i := 0 to len - 1 do
+                with table[i] do
+                    for j := 0 to len - 1 do
+                        if (qsearch(arr[j], qsetB) = -1) then
+                            arr[j] := '';
+    end;
 
   procedure push(const NUM: integer);
     begin
