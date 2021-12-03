@@ -73,7 +73,7 @@ implementation
               else
                   begin
                     tmp := LEXEMS[POS][1];
-                    if ((tmp>='0') and (tmp<='9')) then RESULT:=false
+                    if ((tmp>='0') and (tmp<='9'))or(tmp='"')or(tmp='''') then RESULT:=false
                         else RESULT:=true;
                   end;
     end;
