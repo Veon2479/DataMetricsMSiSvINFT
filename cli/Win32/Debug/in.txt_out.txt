@@ -33,6 +33,12 @@ Scanner.nextLong
 ,
 g
 ;
+f
+=
+g
++
+a
+;
 if
 (
 a
@@ -219,5 +225,14 @@ break
 ;
 }
 }
+System.out.println
+(
+a
++
+b
++
+c
+)
+;
 // return; 
 }

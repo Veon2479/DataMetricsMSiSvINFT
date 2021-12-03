@@ -47,9 +47,22 @@ begin
 
     writeln('LOG: try to count chepin');
     countChepin(lexems, nLexems);
-    writeln('CHEPIN: var with type T: ', qcount(vtypeT));
-    writeln('CHEPIN: var with type P: ', qcount(vtypeP));
-    writeln('CHEPIN: var with type M: ', qcount(vtypeM));
+    writeln('CHEPIN TOT: var with type T: ', qcount(vtypeT));
+    writeln('CHEPIN TOT: var with type P: ', qcount(vtypeP));
+    writeln('CHEPIN TOT: var with type M: ', qcount(vtypeM));
+    writeln('CHEPIN TOT: var with type C: ', qcount(vtypeC));
+
+
+    writeln('########################### ');
+    qmul(vtypeT, vtypeIO);
+    qmul(vtypeP, vtypeIO);
+    qmul(vtypeM, vtypeIO);
+    qmul(vtypeC, vtypeIO);
+
+    writeln('CHEPIN  IO: var with type T: ', qcount(vtypeT));
+    writeln('CHEPIN  IO: var with type P: ', qcount(vtypeP));
+    writeln('CHEPIN  IO: var with type M: ', qcount(vtypeM));
+    writeln('CHEPIN  IO: var with type C: ', qcount(vtypeC));
     writeln('LOG: count chepin ended');
 
     // create output

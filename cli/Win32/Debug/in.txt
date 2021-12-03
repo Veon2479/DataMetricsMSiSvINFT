@@ -1,6 +1,7 @@
 public static void main(String[] args) {
 	int a = args ? 0 : 1;
-	long b, c = 10, f = Scanner.nextLong(), g; 
+	long b, c = 10, f = Scanner.nextLong(), g;
+	f = g + a; 
 	if (a == 0) 
 		a++;
 	else	
@@ -40,5 +41,7 @@ public static void main(String[] args) {
 				case a - b: i*=2; b = i; break;
 			}
 	} 
+
+	System.out.println(a + b + c);
  	// return;
     }
