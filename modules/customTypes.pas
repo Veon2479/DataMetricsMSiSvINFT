@@ -81,6 +81,7 @@ interface
         DSIGNS = ' <= >= == != ++ -- || && ';
         BLACKLIST = ' } ] ) ';
 
+
         STR_OP_ASS    = ' = += -= *= /= %= &= ^= |= <<= >>= >>>= ';
         STR_OP_UNAR   = ' ++ -- ~ ! ';
         STR_OP_LOGIC  = ' % & | && || ^ == != ';
@@ -111,6 +112,8 @@ interface
                     + STR_OP_LOGIC + STR_OP_REL + STR_OP_AR
                     + STR_lIf + STR_lSwitch + STR_lFor + STR_lWhile
                     + STR_lRepeat + STR_lConv + STR_lCase;
+        ALPHABET =  BLACKLIST+DSIGNS+OP_SIGNS+IGNORED+SUPER_IGNORED+JUMPES+CYCLES+MINORENTRIES+MAJORENTRIES+STR_OPERATORS;
+
   var
     nLexems: integer;
 
@@ -122,6 +125,7 @@ interface
 
   //function getHash(const member: shortString; const qset: QSet): integer; overload;
   //procedure qpush(const member: shortString; var qset: QSet);
+
   function qsearch(const member: shortString; const qset: QSet): integer;
   function qadd(const member: shortString; var qset: QSet): boolean;
   function qrm(const member: shortString; var qset: QSet): boolean;
@@ -132,11 +136,13 @@ interface
   procedure qmul(var qsetA: QSet; const qsetB: QSet);
 
 
+  function isReserved(const ID: String): boolean;
+
+
 implementation
   var
     Stack: array[1..200] of integer;
     SP: integer = 1;  //first empty
-
 
     procedure pushToArr(const member: shortString; var td: TStringDynArray);
     var i: integer;
@@ -228,6 +234,16 @@ implementation
                     for j := 0 to len - 1 do
                         if arr[j] <> '' then
                             inc(result);
+    end;               
+
+  function isReserved(const ID: String): boolean;
+    var
+      code: integer;
+    begin
+      code := pos(' '+ID+' ', ALPHABET);
+      if code <> 0 then RESULT:=true
+        else RESULT:=false;
+
     end;
 
     procedure qsum(var qsetA: QSet; const qsetB: QSet);
