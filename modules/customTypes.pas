@@ -135,6 +135,7 @@ interface
 
   procedure qsum(var qsetA: QSet; const qsetB: QSet);
   procedure qmul(var qsetA: QSet; const qsetB: QSet);
+  procedure qwrite(const qset: QSet);
 
 
   function isReserved(const ID: String): boolean;
@@ -266,6 +267,18 @@ implementation
                     for j := 0 to len - 1 do
                         if (qsearch(arr[j], qsetB) = -1) then
                             arr[j] := '';
+    end;
+
+    procedure qwrite(const qset: QSet);
+    var i, j: integer;
+    begin
+        with qset do
+                for i := 0 to len - 1 do
+                    with table[i] do
+                        for j := 0 to len - 1 do
+                            if arr[j] <> '' then
+                                write(arr[j], ', ');
+        writeln;
     end;
 
   procedure push(const NUM: integer);

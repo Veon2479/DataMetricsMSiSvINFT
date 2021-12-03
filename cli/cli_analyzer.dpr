@@ -44,29 +44,7 @@ begin
     closeFile(fileIn);
 
     writeln('LOG: file was divided into tokens');
-
-    writeln('LOG: try to count chepin');
-    countChepin(lexems, nLexems);
-    writeln('CHEPIN TOT: var with type T: ', qcount(vtypeT));
-    writeln('CHEPIN TOT: var with type P: ', qcount(vtypeP));
-    writeln('CHEPIN TOT: var with type M: ', qcount(vtypeM));
-    writeln('CHEPIN TOT: var with type C: ', qcount(vtypeC));
-
-
-    writeln('########################### ');
-    qmul(vtypeT, vtypeIO);
-    qmul(vtypeP, vtypeIO);
-    qmul(vtypeM, vtypeIO);
-    qmul(vtypeC, vtypeIO);
-
-    writeln('CHEPIN  IO: var with type T: ', qcount(vtypeT));
-    writeln('CHEPIN  IO: var with type P: ', qcount(vtypeP));
-    writeln('CHEPIN  IO: var with type M: ', qcount(vtypeM));
-    writeln('CHEPIN  IO: var with type C: ', qcount(vtypeC));
-    writeln('LOG: count chepin ended');
-
-    // create output
-    AssignFile(fileOut, filename + '_out' + '.txt', CP_UTF8);   // open file
+     AssignFile(fileOut, filename + '_out' + '.txt', CP_UTF8);   // open file
     rewrite(fileOut);
     for i := 0 to nLexems do
         writeln(fileOut, lexems[i]);
@@ -90,6 +68,40 @@ begin
       writeln(IOSpenRes[i].lexem,' - ',IOSpenRes[i].spen)
       else writeln('There''s no IO-vars');
     writeln('Done!');
+
+
+
+    writeln('LOG: try to count chepin');
+    countChepin(lexems, nLexems);
+    crutch(SpenRes);
+    writeln('CHEPIN TOT: var with type T: ', qcount(vtypeT));
+    qwrite(vtypeT);
+    writeln('CHEPIN TOT: var with type P: ', qcount(vtypeP));
+    qwrite(vtypeP);
+    writeln('CHEPIN TOT: var with type M: ', qcount(vtypeM));
+    qwrite(vtypeM);
+    writeln('CHEPIN TOT: var with type C: ', qcount(vtypeC));
+    qwrite(vtypeC);
+
+
+    writeln('########################### ');
+    qmul(vtypeT, vtypeIO);
+    qmul(vtypeP, vtypeIO);
+    qmul(vtypeM, vtypeIO);
+    qmul(vtypeC, vtypeIO);
+
+
+    writeln('CHEPIN  IO: var with type T: ', qcount(vtypeT));
+    qwrite(vtypeT);
+    writeln('CHEPIN  IO: var with type P: ', qcount(vtypeP));
+    qwrite(vtypeP);
+    writeln('CHEPIN  IO: var with type M: ', qcount(vtypeM));
+    qwrite(vtypeM);
+    writeln('CHEPIN  IO: var with type C: ', qcount(vtypeC));
+    qwrite(vtypeC);
+    writeln('LOG: count chepin ended');
+
+    // create output
 
     readln;
 

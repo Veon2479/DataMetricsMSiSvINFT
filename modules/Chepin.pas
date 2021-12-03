@@ -8,6 +8,7 @@ interface
  var vtypeP, vtypeM, vtypeC, vtypeT, vtypeIO: QSet;
 
  procedure countChepin(var lexems: TArray; const nLexems: integer);
+ procedure crutch(const SPENS: tSpens);
 
 
 implementation
@@ -21,6 +22,20 @@ implementation
     begin
         result:= (pos('System.out.', lexem) <> 0);//false; i:= 1;
     end;
+
+    procedure crutch(const SPENS: tSpens);
+      var
+        i: integer;
+      begin
+        for i:=0 to length(SPENS)-1 do
+          begin
+            if SPENS[i].spen=0 then
+                begin
+                  qadd(SPENS[i].lexem, vtypeT);
+                end;
+          end;
+
+      end;
 
     procedure countChepin(var lexems: TArray; const nLexems: integer);
     var i, sqBktCnt, rndBktCtr, temp: integer; lexem: string; founded: boolean;
