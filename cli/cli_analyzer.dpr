@@ -45,6 +45,13 @@ begin
 
     writeln('LOG: file was divided into tokens');
 
+    writeln('LOG: try to count chepin');
+    countChepin(lexems, nLexems);
+    writeln('CHEPIN: var with type T: ', qcount(vtypeT));
+    writeln('CHEPIN: var with type P: ', qcount(vtypeP));
+    writeln('CHEPIN: var with type M: ', qcount(vtypeM));
+    writeln('LOG: count chepin ended');
+
     // create output
     AssignFile(fileOut, filename + '_out' + '.txt', CP_UTF8);   // open file
     rewrite(fileOut);

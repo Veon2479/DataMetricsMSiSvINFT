@@ -1,5 +1,6 @@
 public static void main(String[] args) {
 	int a = args ? 0 : 1;
+	long b, c = 10, f = Scanner.nextLong(), g; 
 	if (a == 0) 
 		a++;
 	else	
