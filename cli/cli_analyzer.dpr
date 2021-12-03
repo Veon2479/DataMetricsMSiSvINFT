@@ -28,7 +28,7 @@ var
 
     absDiff, relDiff, height: integer;
 
-    SpenRes: tSpens;
+    SpenRes, IOSpenRes: tSpens;
 
 begin
 
@@ -82,8 +82,14 @@ begin
     writeln('Done!');
 
     writeln('LOG: counting spens completed');
+    writeln('IO-variabels:');
+    IOSPenRes:=IOVarList(SpenRes, Lexems, nLexems);
+    if length(IOSpenRes)<>0 then
 
-
+    for i := 0 to length(IOSpenRes)-1 do
+      writeln(IOSpenRes[i].lexem,' - ',IOSpenRes[i].spen)
+      else writeln('There''s no IO-vars');
+    writeln('Done!');
 
     readln;
 

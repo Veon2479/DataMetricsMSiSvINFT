@@ -8,6 +8,7 @@ interface
 
 function getSpenAnalys(const LEXEMS: tArray; const NLEXEMS: integer): tSpens;
 function getProgSpen(const SPENS: tSpens): integer;
+function IOVarList(const VARS: tSpens; const LEXEMS: tArray; const NLEXEMS: integer): tSpens;
 
 implementation
   var
@@ -73,7 +74,7 @@ implementation
               else
                   begin
                     tmp := LEXEMS[POS][1];
-                    if ((tmp>='0') and (tmp<='9'))or(tmp='"')or(tmp='''') then RESULT:=false
+                    if ((tmp>='0') and (tmp<='9'))or(tmp='"')or(tmp='''')or(LEXEMS[POS]='true')or(LEXEMS[POS]='false')or(LEXEMS[POS]='null') then RESULT:=false
                         else RESULT:=true;
                   end;
     end;
@@ -120,4 +121,71 @@ implementation
       for field in SPENS do
         inc(RESULT, field.spen);
     end;
+
+
+  function IOVarList(const VARS: tSpens; const LEXEMS: tArray; const NLEXEMS: integer): tSpens;
+
+
+        function isIOVar(const LEX: String): boolean;
+          var
+            posit, back, forw, count: integer;
+            f: boolean;
+          begin
+            RESULT:=false;
+            f:=true;
+            posit:=0;
+            while f do
+              begin
+                if ( pos('.next', LEXEMS[posit] )<>0)or (pos('.read', LEXEMS[posit])<>0 ) then
+                    begin
+                      back:=posit-1;
+                      while not isID(LEXEMS, back) do
+                        dec(back);
+                      if LEXEMS[back]=LEX then
+                          begin
+                            RESULT:=true;
+                            exit;
+                          end;
+                    end
+                  else if ( pos('.print', LEXEMS[posit] )<>0)or (pos('.write', LEXEMS[posit])<>0 ) then
+                      begin
+                        forw:=posit+1;
+                        count:=1;
+                        while count<>0 do
+                          begin
+                            inc(forw);
+                            if LEXEMS[forw]=LEX then
+                                begin
+                                  RESULT:=true;
+                                  exit;
+                                end;
+                            if LEXEMS[forw]='(' then inc(count)
+                              else if LEXEMS[forw]=')' then dec(count);
+                          end;
+
+                      end;
+                if posit=NLEXEMS then f:=false;
+                inc(posit);
+              end;
+
+          end;
+
+    var
+      i, count: integer;
+    begin
+      initArr(RESULT);
+      count := 0;
+      for i:=0 to length(VARS)-1 do
+        begin
+          if isIOVar(VARS[i].lexem) then
+            begin
+              if isFull(RESULT) then
+                  resize(RESULT);
+              RESULT[count] := VARS[i];
+              inc(count);
+            end;
+        end;
+      cut(RESULT);
+    end;
+
 end.
