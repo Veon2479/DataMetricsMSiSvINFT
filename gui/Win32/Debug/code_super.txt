@@ -1,0 +1,39 @@
+// TOTAL: hei = 3, op = 14, absDiff = 1 1 1 5 = 8
+
+public static void main(String[] args) {
+	// hei = 1, op = 2
+	int a = args ? 0 : 1;
+ 
+	// hei = 1, op = 3
+	if (a == 0) 
+		a++;
+	else	
+		a--;
+
+	// hei = 1, op = 2
+	if (a == 1) 
+		b = 10; 
+	
+	// hei = 3, op = 3
+	while (b > 1) {
+		// hei = 2, op = 2
+		switch (a) 
+		{
+			case 1: log(a);
+			case 0: log(-a); 
+			default: a--;
+		}
+		// hei = 0, op = 1
+                if (a != 1)
+			b <<= 2;
+
+		
+		
+	}
+	
+ 	// return;
+	
+    }
+
+
+    
