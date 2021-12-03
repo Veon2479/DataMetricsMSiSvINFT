@@ -1,11 +1,13 @@
 public static void main(String[] args) {
 	int a = args ? 0 : 1;
+
 	if ( a == 0)
 		 a ++;
 	else
 		 a --;
 	if ( a == 1)
 		b = 10;
+
 	while (b > 1) {
 		switch ( a )
 		{

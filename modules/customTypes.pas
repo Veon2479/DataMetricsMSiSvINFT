@@ -27,6 +27,18 @@ interface
     end;
 
     tSpens = array of tSpenToken;
+    //////// QSET
+    TStringArr = array of string;
+    TStringDynArray = record
+        len: integer;
+        arr: TStringArr;
+    end;
+    PStringDynArray = ^TStringDynArray;
+    TStringDynArrays = array of TStringDynArray;
+    QSet = record
+        table: TStringDynArrays;   // array of arrays
+        len: integer; // len - full lenght of table, atOne - amount of chars
+    end;
 
     ///
 
@@ -85,6 +97,12 @@ interface
         STR_lCase     = ' case ';
         STR_lDeflt    = ' default ';
 
+        STR_COND_OPES = ' if switch for while do ? ';
+        STR_DEFINE_VAR = ' int float double String char boolean short long byte ';
+        STRS_READ_VAR_AMOUNT = 9;
+        STRS_READ_VAR  : array [1..STRS_READ_VAR_AMOUNT] of string = ('.readLine', '.nextLine',
+            '.nextFloat', '.nextInt', '.nextDouble', '.nextByte', '.nextLong', '.nextShort', '.next');
+
         STR_OPERATORS = STR_OP_ASS + STR_OP_UNAR
                     + STR_OP_LOGIC + STR_OP_REL + STR_OP_AR
                     + STR_lIf + STR_lSwitch + STR_lFor + STR_lWhile
@@ -100,12 +118,116 @@ interface
   function getLen: integer;
   procedure resetStack;
 
+
+  function getHash(const member: shortString; const qset: QSet): integer; overload;
+  procedure qpush(const member: shortString; var qset: QSet);
+  function qsearch(const member: shortString; const qset: QSet): integer;
+  function qadd(const member: shortString; var qset: QSet): boolean;
+  function qrm(const member: shortString; var qset: QSet): boolean;
+  procedure qini(var qset: QSet; const len: integer);
+  function qcount(const qset: QSet): integer;
+
+
   function isReserved(const ID: String): boolean;
+
 
 implementation
   var
     Stack: array[1..200] of integer;
     SP: integer = 1;  //first empty
+
+    procedure pushToArr(const member: shortString; var td: TStringDynArray);
+    var i: integer;
+    begin
+        with td do
+        begin
+            i:= 0;
+            while (i < len) and (arr[i] <> '') do
+                inc(i);
+            if (i < len) then // founded empty place
+                arr[i] := member
+            else
+            begin
+                // if array has place
+                if Length(arr) <= len then
+                    if Length(arr) = 0 then
+                        SetLength(arr, 4)
+                    else
+                        SetLength(arr, len * 2);
+                // add element
+                arr[len] := member;
+                inc(len);
+            end;
+        end;
+    end;
+    function delFromArr(const member: shortString; var td: TStringDynArray): boolean;
+    var i: integer;
+    begin
+        i := 0;
+        while (i < td.len) and (td.arr[i] <> member)  do
+            inc(i);
+        result:= (i < td.len);
+        if result then
+            td.arr[i] := '';
+    end;
+    function searchInArr(const member: shortString; var td: TStringDynArray): integer;
+    begin
+        Result := 0;
+        with td do
+        begin
+            while (Result < len) and (arr[Result] <> member) do
+                inc(Result);
+            if (Result >= len) then
+                Result:= -1;
+        end;
+    end;
+
+
+    function getHash(const member: shortString; const qset: QSet): integer; overload;
+    var c : ansichar;
+    begin
+        result := 0;
+        for c in member do
+            inc(result, ord(c));
+        result:= Result mod qset.len;
+    end;
+
+    function qadd(const member: shortString; var qset: QSet): boolean;
+    begin
+        result:= (qsearch(member, qset)  = -1);
+        if result then
+            qpush(member, qset);
+    end;
+    procedure qini(var qset: QSet; const len: integer);
+    var i : integer;
+    begin
+        qset.len := len;
+        setLength(qset.table, len);
+    end;
+    procedure qpush(const member: shortString; var qset: QSet);
+    var i: integer;
+    begin
+        pushToArr(member, qset.table[getHash(member, qset)]);
+    end;
+    function qsearch(const member: shortString; const qset: QSet): integer;
+    begin
+        result:= searchInArr(member, qset.table[getHash(member, qset)]);
+    end;
+    function qrm(const member: shortString; var qset: QSet): boolean;
+    begin
+        result:= delFromArr(member, qset.table[getHash(member, qset)]);
+    end;
+    function qcount(const qset: QSet): integer;
+    var i, j: integer;
+    begin
+        result:= 0;
+        with qset do
+            for i := 0 to len - 1 do
+                with table[i] do
+                    for j := 0 to len - 1 do
+                        if arr[j] <> '' then
+                            inc(result);
+    end;               
 
   function isReserved(const ID: String): boolean;
     var
@@ -114,6 +236,7 @@ implementation
       code := pos(' '+ID+' ', ALPHABET);
       if code <> 0 then RESULT:=true
         else RESULT:=false;
+
     end;
 
 
@@ -152,12 +275,3 @@ implementation
     end;
 
 end.
-
-{Initialization
-  var
-    i: integer;
-  Begin
-    for i:=1 to 200 do
-      Stack[i]:=0;
-  End;
-end. }
