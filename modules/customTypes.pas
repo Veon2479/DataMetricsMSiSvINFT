@@ -107,7 +107,7 @@ interface
                     + STR_OP_LOGIC + STR_OP_REL + STR_OP_AR
                     + STR_lIf + STR_lSwitch + STR_lFor + STR_lWhile
                     + STR_lRepeat + STR_lConv + STR_lCase;
-        IGNORED_IO = ' Scanner System.in InPutStream OutPutStream ';
+        IGNORED_IO = ' Scanner System.in InPutStream OutPutStream FileOutputStream FileInputStream ';
         ALPHABET =  IGNORED_IO+BLACKLIST+DSIGNS+OP_SIGNS+IGNORED+SUPER_IGNORED+JUMPES+CYCLES+MINORENTRIES+MAJORENTRIES+STR_OPERATORS;
 
   var
