@@ -1,0 +1,50 @@
+Operators:
+  num entries   lexem
+    1       1   main
+    2      13   (..)
+    3       1   [..]
+    4       7   {..}
+    5       7   =
+    6       1   ?..:..
+    7       8   :
+    8      24   ;
+    9       4   if..then..else
+   10       2   ==
+   11       4   ++
+   12       4   --
+   13       3   while
+   14       1   >
+   15       2   switch..case
+   16       2   log
+   17       2   -
+   18       1   !=
+   19       1   %
+   20       1   do..while
+   21       2   <
+   22       1   for
+   23       3   break
+   24       1   +
+   25       2   *
+
+Operands:
+  num entries   lexem
+    1       2   args
+    2      16   a
+    3       4   0
+    4       5   1
+    5      12   b
+    6       2   10
+    7       1   <<=
+    8       4   2
+    9       1   >>=
+   10       1   >>
+   11      14   i
+   12       1   20
+   13       1   -=
+   14       1   +=
+
+Operators dictionary: 25 - Operators, in total: 98
+Operands dictionary: 14 - Operands, in total: 65
+Program dictionary: 39
+Program length: 163
+Program volume: 815

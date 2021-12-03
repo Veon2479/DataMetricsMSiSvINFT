@@ -1,0 +1,14 @@
+public static void main(String[] args) {
+	do 
+	{
+		a++;
+	} while (a);
+	if (a)
+		a++;
+	else
+		a--;
+	
+    }
+
+
+    

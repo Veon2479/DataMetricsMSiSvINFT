@@ -1,0 +1,19 @@
+public static void main(String[] args) {
+	get(x);
+	
+	if (x < 0)
+		y = 0;
+	else if (x = 0)
+		y = 2;
+	else if (x < 0.5)
+		y = 2;
+	else if (x < 1)
+		y = 3;
+	else
+		y = 4;
+	
+	log(x);
+    }
+
+
+    
