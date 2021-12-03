@@ -110,7 +110,10 @@ begin
     if (nLexems < 1) then
         exit;
     // count chepin
+    SpenRes := getSpenAnalys(lexems, nLexems);    //this array doesn't contain void fields
     countChepin(lexems, nLexems);
+    crutch(SpenRes);
+
 
     with ResultGrid do
     begin
@@ -172,7 +175,7 @@ begin
         Cells[1, maxCnt + 2] := 'спен';
 
         // for spen do
-        SpenRes := getSpenAnalys(lexems, nLexems);    //this array doesn't contain void fields
+       // SpenRes := getSpenAnalys(lexems, nLexems);    //this array doesn't contain void fields
 
         maxCnt := maxCnt + 3;
         ResultGrid.RowCount := maxCnt + length(SpenRes) + 1;

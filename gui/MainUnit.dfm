@@ -3,7 +3,7 @@ object TMainForm: TTMainForm
   Top = 0
   Caption = 'TMainForm'
   ClientHeight = 482
-  ClientWidth = 1615
+  ClientWidth = 1302
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,7 +14,7 @@ object TMainForm: TTMainForm
   OldCreateOrder = False
   OnCreate = Created
   DesignSize = (
-    1615
+    1302
     482)
   PixelsPerInch = 96
   TextHeight = 13
